@@ -21,17 +21,14 @@ export default function Country(props) {
     <React.Fragment>
       {!isLoading && (
         <img
-          src={`https://flagcdn.com/${
-            countryCodeRef.current[props.randInt]
-          }.svg`}
+          src={`https://flagcdn.com/${countryCodeRef.current[props.index]}.svg`}
           width="300"
-          alt={`${countriesRef.current[countryCodeRef.current[props.randInt]]}`}
-          onClick={props.onClick}
+          alt={`${countriesRef.current[countryCodeRef.current[props.index]]}`}
         />
       )}
       <span>
         {!isLoading &&
-          `${countriesRef.current[countryCodeRef.current[props.randInt]]}`}
+          `${countriesRef.current[countryCodeRef.current[props.index]]}`}
       </span>
     </React.Fragment>
   );

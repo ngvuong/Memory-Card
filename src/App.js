@@ -1,5 +1,6 @@
 // import React, { useState, useEffect, useRef } from "react";
-import Card from "./components/Card";
+// import Card from "./components/Card";
+import Grid from "./components/Grid";
 import "./styles/App.css";
 
 function App() {
@@ -31,7 +32,8 @@ function App() {
 
   return (
     <div className="App">
-      <Card />
+      {/* <Card /> */}
+      <Grid level={1} />
     </div>
   );
 }
