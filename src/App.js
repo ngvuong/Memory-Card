@@ -1,5 +1,5 @@
 // import React, { useState, useEffect, useRef } from "react";
-import Countries from "./components/Countries";
+import Card from "./components/Card";
 import "./styles/App.css";
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
 
   return (
     <div className="App">
-      <Countries />
+      <Card />
     </div>
   );
 }

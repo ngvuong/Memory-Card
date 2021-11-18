@@ -1,13 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 
-export default function Countries() {
+export default function Country(props) {
   const countriesRef = useRef();
   const countryCodeRef = useRef();
   const [isLoading, setIsLoading] = useState(true);
-  let randInt;
-  if (!isLoading) {
-    randInt = Math.floor(Math.random() * 256);
-  }
+
   useEffect(() => {
     fetch("https://flagcdn.com/en/codes.json").then((res) => {
       res.json().then((data) => {
@@ -20,25 +17,22 @@ export default function Countries() {
     });
   }, []);
 
-  const onRandomize = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 100);
-  };
-
   return (
-    <div>
+    <React.Fragment>
       {!isLoading && (
         <img
-          src={`https://flagcdn.com/${countryCodeRef.current[randInt]}.svg`}
+          src={`https://flagcdn.com/${
+            countryCodeRef.current[props.randInt]
+          }.svg`}
           width="300"
-          alt={`${countriesRef.current[countryCodeRef.current[randInt]]}`}
-          onClick={onRandomize}
+          alt={`${countriesRef.current[countryCodeRef.current[props.randInt]]}`}
+          onClick={props.onClick}
         />
       )}
-      {!isLoading && `${countriesRef.current[countryCodeRef.current[randInt]]}`}
-      <button onClick={onRandomize}>Randomize</button>
-    </div>
+      <span>
+        {!isLoading &&
+          `${countriesRef.current[countryCodeRef.current[props.randInt]]}`}
+      </span>
+    </React.Fragment>
   );
 }
