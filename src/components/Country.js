@@ -24,6 +24,7 @@ export default function Country(props) {
           src={`https://flagcdn.com/${countryCodeRef.current[props.index]}.svg`}
           width="300"
           alt={`${countriesRef.current[countryCodeRef.current[props.index]]}`}
+          onClick={props.onClick}
         />
       )}
       <span>

@@ -4,7 +4,7 @@ import Country from "./Country";
 export default function Card(props) {
   return (
     <div className="flag-card">
-      <Country index={props.index} />
+      <Country index={props.index} onClick={props.onClick} />
     </div>
   );
 }
