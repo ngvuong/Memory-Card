@@ -30,10 +30,12 @@ function App() {
   //   }, 100);
   // };
 
+  const int = Math.floor(Math.random() * 2) + 1;
+  console.log(int);
   return (
     <div className="App">
       {/* <Card /> */}
-      <Grid level={1} />
+      <Grid level={int} />
     </div>
   );
 }

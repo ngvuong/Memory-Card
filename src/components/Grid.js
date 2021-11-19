@@ -4,14 +4,25 @@ import Card from "./Card";
 export default function Grid(props) {
   const [size, setSize] = useState(2);
   const [isShuffled, setIsShuffled] = useState(false);
+  const [skip, setSkip] = useState(true);
+  const levelRef = useRef(props.level);
   const randIntsRef = useRef();
   const randInts = randIntsRef.current || [];
 
   useEffect(() => {
     setSize(parseInt(props.level) + 1);
-    randIntsRef.current = [];
   }, [props.level]);
 
+  // useEffect(() => {
+  //   if (!skip) {
+  //     randIntsRef.current = [];
+  //   }
+  //   // setSkip(false);
+  // }, [skip, size]);
+
+  if (props.level !== levelRef.current) {
+    randIntsRef.current = [];
+  }
   if (isShuffled) {
     setIsShuffled(false);
   }
@@ -23,6 +34,7 @@ export default function Grid(props) {
     }
   }
   randIntsRef.current = randInts;
+  console.log(randIntsRef);
   const onRandomize = () => {
     for (let i = randIntsRef.current.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -31,7 +43,7 @@ export default function Grid(props) {
         randIntsRef.current[i],
       ];
     }
-    console.log(randIntsRef.current, randInts);
+    // setSkip(false);
     setIsShuffled(true);
   };
 
