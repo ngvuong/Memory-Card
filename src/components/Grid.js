@@ -5,7 +5,7 @@ export default function Grid(props) {
   const [size, setSize] = useState(2);
   const [isShuffled, setIsShuffled] = useState(false);
   const [skip, setSkip] = useState(true);
-  const levelRef = useRef(props.level);
+  const levelRef = useRef();
   const randIntsRef = useRef();
   const randInts = randIntsRef.current || [];
 
@@ -19,10 +19,12 @@ export default function Grid(props) {
   //   }
   //   // setSkip(false);
   // }, [skip, size]);
+  console.log(props.level);
 
   if (props.level !== levelRef.current) {
     randIntsRef.current = [];
   }
+  levelRef.current = props.level;
   if (isShuffled) {
     setIsShuffled(false);
   }
