@@ -8,7 +8,16 @@ export default function Grid(props) {
   const levelRef = useRef();
   const randIntsRef = useRef();
   const randInts = randIntsRef.current || [];
+  const [randNums, setRandNums] = useState([]);
 
+  while (randNums.length < size ** 2) {
+    const num = Math.floor(Math.random() * 256);
+    if (!randNums.includes(num)) {
+      setRandNums((prevState) => {
+        prevState.push(num);
+      });
+    }
+  }
   useEffect(() => {
     setSize(parseInt(props.level) + 1);
   }, [props.level]);
