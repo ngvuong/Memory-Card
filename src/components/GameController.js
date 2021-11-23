@@ -20,11 +20,11 @@ export default function GameController() {
   }, []);
 
   const [level, setLevel] = useState(1);
-  const [size, setSize] = useState(2);
+  const size = level + 1;
   const [isShuffled, setIsShuffled] = useState(false);
-  const randIntsRef = useRef();
-  const [randNums, setRandNums] = useState([]);
-  const randInts = randNums;
+  const randIntsRef = useRef([]);
+  // const [randNums, setRandNums] = useState([]);
+  const randInts = randIntsRef.current;
   const [isClicked, setIsClicked] = useState({});
   const isFirstRender = useRef(true);
   useEffect(() => {
@@ -32,8 +32,7 @@ export default function GameController() {
       isFirstRender.current = false;
       return;
     }
-    setSize(parseInt(level) + 1);
-    setRandNums([]);
+    randIntsRef.current = [];
     console.log("set size");
   }, [level]);
 
@@ -58,27 +57,43 @@ export default function GameController() {
     }
   }
   randIntsRef.current = randInts;
-  useEffect(() => {
-    setRandNums(randInts);
-    // console.log(randNums);
-  }, [randInts]);
-  console.log(randIntsRef);
 
-  const onCardClick = (index) => {
+  console.log(randIntsRef.current);
+
+  const shuffle = () => {
     for (let i = randIntsRef.current.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
+      // setRandNums((nums) => {
+      //   [nums[i], nums[j]] = [nums[j], nums[i]];
+      //   return nums;
+      // });
       [randIntsRef.current[i], randIntsRef.current[j]] = [
         randIntsRef.current[j],
         randIntsRef.current[i],
       ];
     }
+  };
+
+  const restartGame = () => {
+    randIntsRef.current = [];
+    setIsClicked({});
+  };
+
+  const onCardClick = (index) => {
+    shuffle();
     setIsClicked((prevState) => {
+      if (prevState[index] === true) {
+        restartGame();
+      }
       const newState = { ...prevState, [index]: true };
       console.log(newState);
       const allClicked = Object.keys(newState).every(
         (key) => newState[key] === true
       );
       if (allClicked) {
+        randIntsRef.current = [];
+        setIsClicked({});
+        setLevel(level + 1);
         console.log("all clicked");
       }
       return newState;
@@ -94,7 +109,7 @@ export default function GameController() {
         <Grid
           countries={countriesRef.current}
           countryCodes={countryCodeRef.current}
-          randNums={randNums}
+          randNums={randIntsRef.current}
           onCardClick={onCardClick}
         />
       )}
