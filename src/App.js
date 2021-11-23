@@ -1,6 +1,7 @@
 // import React, { useState, useEffect, useRef } from "react";
 // import Card from "./components/Card";
-import Grid from "./components/Grid";
+// import Grid from "./components/Grid";
+import GameController from "./components/GameController";
 import "./styles/App.css";
 
 function App() {
@@ -33,7 +34,8 @@ function App() {
   return (
     <div className="App">
       {/* <Card /> */}
-      <Grid level={1} />
+      {/* <Grid level={1} /> */}
+      <GameController />
     </div>
   );
 }

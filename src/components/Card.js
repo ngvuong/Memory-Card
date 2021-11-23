@@ -1,10 +1,16 @@
 import React from "react";
-import Country from "./Country";
 
-export default function Card(props) {
+export default function Card({ countries, countryCodes, index, onClick }) {
   return (
     <div className="flag-card">
-      <Country index={props.index} onClick={props.onClick} />
+      <img
+        src={`https://flagcdn.com/${countryCodes[index]}.svg`}
+        width="300"
+        alt={`${countries[countryCodes[index]]}`}
+        onClick={onClick}
+      />
+
+      <span>{countries[countryCodes[index]]}</span>
     </div>
   );
 }

@@ -8,16 +8,16 @@ export default function Grid(props) {
   const levelRef = useRef();
   const randIntsRef = useRef();
   const randInts = randIntsRef.current || [];
-  const [randNums, setRandNums] = useState([]);
+  // const [randNums, setRandNums] = useState([]);
 
-  while (randNums.length < size ** 2) {
-    const num = Math.floor(Math.random() * 256);
-    if (!randNums.includes(num)) {
-      setRandNums((prevState) => {
-        prevState.push(num);
-      });
-    }
-  }
+  // while (randNums.length < size ** 2) {
+  //   const num = Math.floor(Math.random() * 256);
+  //   if (!randNums.includes(num)) {
+  //     setRandNums((prevState) => {
+  //       prevState.push(num);
+  //     });
+  //   }
+  // }
   useEffect(() => {
     setSize(parseInt(props.level) + 1);
   }, [props.level]);
@@ -57,12 +57,19 @@ export default function Grid(props) {
     // setSkip(false);
     setIsShuffled(true);
   };
-
   return (
-    <div>
+    <React.Fragment>
       {randIntsRef.current.map((int) => {
-        return <Card key={int} index={int} onClick={onRandomize} />;
+        return (
+          <Card
+            key={int}
+            index={int}
+            onClick={onRandomize}
+            countries={props.countries}
+            countryCodes={props.countryCodes}
+          />
+        );
       })}
-    </div>
+    </React.Fragment>
   );
 }
