@@ -8,7 +8,7 @@ export default function Card({ countries, countryCodes, index, onClick }) {
         src={`https://flagcdn.com/${countryCodes[index]}.svg`}
         width="300"
         alt={`${countries[countryCodes[index]]}`}
-        onClick={onClick}
+        onClick={() => onClick(index)}
       />
 
       <span>{countries[countryCodes[index]]}</span>

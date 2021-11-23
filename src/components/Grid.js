@@ -9,6 +9,7 @@ export default function Grid(props) {
   const randIntsRef = useRef();
   const [randNums, setRandNums] = useState([]);
   const randInts = randNums;
+  const [isClicked, setIsClicked] = useState({});
 
   // useEffect(() => {
   //   setSize(parseInt(props.level) + 1);
@@ -35,6 +36,9 @@ export default function Grid(props) {
     const int = Math.floor(Math.random() * 256);
     if (!randInts.includes(int)) {
       randInts.push(int);
+      setIsClicked((prevState) => {
+        return { ...prevState, [int]: false };
+      });
     }
   }
   randIntsRef.current = randInts;
@@ -43,7 +47,7 @@ export default function Grid(props) {
     console.log(randNums);
   }, [randInts]);
   console.log(randIntsRef);
-  const onRandomize = () => {
+  const onCardClick = (index) => {
     for (let i = randIntsRef.current.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [randIntsRef.current[i], randIntsRef.current[j]] = [
@@ -51,6 +55,8 @@ export default function Grid(props) {
         randIntsRef.current[i],
       ];
     }
+    setIsClicked({ ...isClicked, [index]: true });
+    console.log(isClicked);
     // setSkip(false);
     setIsShuffled(true);
   };
@@ -61,7 +67,7 @@ export default function Grid(props) {
           <Card
             key={int}
             index={int}
-            onClick={onRandomize}
+            onClick={onCardClick}
             countries={props.countries}
             countryCodes={props.countryCodes}
           />
