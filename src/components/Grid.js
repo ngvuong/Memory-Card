@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import Card from "./Card";
 
 export default function Grid({
@@ -6,6 +6,7 @@ export default function Grid({
   countryCodes,
   randNums,
   onCardClick,
+  size,
 }) {
   // const [size, setSize] = useState(2);
   // const [isShuffled, setIsShuffled] = useState(false);
@@ -76,7 +77,10 @@ export default function Grid({
   // };
 
   return (
-    <React.Fragment>
+    <div
+      className="card-grid"
+      style={{ gridTemplateColumns: `repeat(${size},5rem)` }}
+    >
       {randNums.map((int) => {
         return (
           <Card
@@ -88,6 +92,6 @@ export default function Grid({
           />
         );
       })}
-    </React.Fragment>
+    </div>
   );
 }

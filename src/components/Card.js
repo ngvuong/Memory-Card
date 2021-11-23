@@ -6,7 +6,7 @@ export default function Card({ countries, countryCodes, index, onClick }) {
     <div className="flag-card">
       <img
         src={`https://flagcdn.com/${countryCodes[index]}.svg`}
-        width="300"
+        // width="300"
         alt={`${countries[countryCodes[index]]}`}
         onClick={() => onClick(index)}
       />

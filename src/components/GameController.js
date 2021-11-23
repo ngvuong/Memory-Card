@@ -20,53 +20,51 @@ export default function GameController() {
   }, []);
 
   const [level, setLevel] = useState(1);
-  const size = level + 1;
-  const [isShuffled, setIsShuffled] = useState(false);
+  const gridSize = level + 1;
+  // const [isShuffled, setIsShuffled] = useState(false);
   const randIntsRef = useRef([]);
   // const [randNums, setRandNums] = useState([]);
   const randInts = randIntsRef.current;
-  const [isClicked, setIsClicked] = useState({});
-  const isFirstRender = useRef(true);
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-    randIntsRef.current = [];
-    console.log("set size");
-  }, [level]);
+  const setIsClicked = useState({})[1];
+  // const isFirstRender = useRef(true);
 
   // useEffect(() => {
-  //   if (!skip) {
-  //     randIntsRef.current = [];
+  //   if (isFirstRender.current) {
+  //     isFirstRender.current = false;
+  //     return;
   //   }
-  //   // setSkip(false);
-  // }, [skip, size]);
+  //   randIntsRef.current = [];
+  //   setIsClicked({});
 
-  if (isShuffled) {
-    setIsShuffled(false);
-  }
+  //   console.log("set gridSize");
+  // }, [level, setIsClicked]);
 
-  while (randInts.length < size ** 2) {
-    const int = Math.floor(Math.random() * 256);
-    if (!randInts.includes(int)) {
-      randInts.push(int);
-      setIsClicked((prevState) => {
-        return { ...prevState, [int]: false };
-      });
+  // if (isShuffled) {
+  //   setIsShuffled(false);
+  // }
+
+  useEffect(() => {
+    while (randInts.length < gridSize ** 2) {
+      const int = Math.floor(Math.random() * 256);
+      if (!randInts.includes(int)) {
+        randInts.push(int);
+        setIsClicked((prevState) => {
+          return { ...prevState, [int]: false };
+        });
+      }
     }
-  }
-  randIntsRef.current = randInts;
+    randIntsRef.current = randInts;
+  }, [randInts, gridSize, setIsClicked]);
 
   console.log(randIntsRef.current);
 
   const shuffle = () => {
     for (let i = randIntsRef.current.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      // setRandNums((nums) => {
-      //   [nums[i], nums[j]] = [nums[j], nums[i]];
-      //   return nums;
-      // });
+      let j = Math.floor(Math.random() * (i + 1));
+      while (i === j) {
+        j = Math.floor(Math.random() * (i + 1));
+      }
+
       [randIntsRef.current[i], randIntsRef.current[j]] = [
         randIntsRef.current[j],
         randIntsRef.current[i],
@@ -77,6 +75,7 @@ export default function GameController() {
   const restartGame = () => {
     randIntsRef.current = [];
     setIsClicked({});
+    setLevel(1);
   };
 
   const onCardClick = (index) => {
@@ -93,6 +92,7 @@ export default function GameController() {
       if (allClicked) {
         randIntsRef.current = [];
         setIsClicked({});
+
         setLevel(level + 1);
         console.log("all clicked");
       }
@@ -100,7 +100,7 @@ export default function GameController() {
     });
     // console.log(isClicked);
     // setSkip(false);
-    setIsShuffled(true);
+    // setIsShuffled(true);
   };
 
   return (
@@ -111,6 +111,7 @@ export default function GameController() {
           countryCodes={countryCodeRef.current}
           randNums={randIntsRef.current}
           onCardClick={onCardClick}
+          size={gridSize}
         />
       )}
     </div>
