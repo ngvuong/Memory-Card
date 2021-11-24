@@ -79,7 +79,7 @@ export default function Grid({
   return (
     <div
       className="card-grid"
-      style={{ gridTemplateColumns: `repeat(${size},5rem)` }}
+      style={{ gridTemplateColumns: `repeat(${size},1fr)` }}
     >
       {randNums.map((int) => {
         return (

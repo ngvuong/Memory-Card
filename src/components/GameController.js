@@ -83,6 +83,7 @@ export default function GameController() {
     setIsClicked((prevState) => {
       if (prevState[index] === true) {
         restartGame();
+        return;
       }
       const newState = { ...prevState, [index]: true };
       console.log(newState);

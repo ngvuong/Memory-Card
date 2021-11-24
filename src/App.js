@@ -33,8 +33,7 @@ function App() {
 
   return (
     <div className="App">
-      {/* <Card /> */}
-      {/* <Grid level={1} /> */}
+      <h1 className="title">Flag Fun</h1>
       <GameController />
     </div>
   );
