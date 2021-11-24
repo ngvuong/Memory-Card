@@ -26,11 +26,11 @@ export default function GameController() {
   const [bestScore, setBestScore] = useState(0);
   const randIntsRef = useRef([]);
 
-  const gridSize = level + 1;
+  const size = level * 2;
   const randInts = randIntsRef.current;
 
   useEffect(() => {
-    while (randInts.length < gridSize ** 2) {
+    while (randInts.length < size) {
       const int = Math.floor(Math.random() * 256);
       if (!randInts.includes(int)) {
         randInts.push(int);
@@ -40,7 +40,7 @@ export default function GameController() {
       }
     }
     randIntsRef.current = randInts;
-  }, [randInts, gridSize]);
+  }, [randInts, size]);
 
   console.log(randIntsRef.current);
 
@@ -104,7 +104,7 @@ export default function GameController() {
           countryCodes={countryCodeRef.current}
           randNums={randIntsRef.current}
           onCardClick={onCardClick}
-          size={gridSize}
+          size={size}
         />
       )}
     </main>

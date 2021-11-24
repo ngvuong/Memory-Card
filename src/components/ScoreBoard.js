@@ -1,12 +1,9 @@
 export default function ScoreBoard({ level, score, bestScore }) {
-  console.log(score);
   return (
     <div className="score-board">
-      <div>
-        <span>Score: {score}</span>
-        <span> Best Score: {bestScore}</span>
-      </div>
-      <span>Level {level}</span>
+      <h2>Score: {score}</h2>
+      <h2>Best: {bestScore}</h2>
+      <h2>Level {level}</h2>
     </div>
   );
 }
