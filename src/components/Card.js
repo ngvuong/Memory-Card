@@ -1,24 +1,9 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
 
 export default function Card({ countries, countryCodes, index, onClick }) {
-  console.log(index, countries[countryCodes[index]]);
-  const cardRef = useRef();
-  useEffect(() => {
-    // cardRef.current.addEventListener(
-    //   "click",
-    //   (e) => (e.target.style.backgroundColor = "red")
-    // );
-  });
   return (
-    <div
-      className="card"
-      onClick={(e) => {
-        e.currentTarget.style.backgroundColor = "red";
-        console.log(e.currentTarget);
-        onClick(index);
-      }}
-      ref={cardRef}
-    >
+    // Pass back index identifier to parent component on click
+    <div className="card" onClick={(e) => onClick(index)}>
       <img
         src={`https://flagcdn.com/${countryCodes[index]}.svg`}
         alt={`${countries[countryCodes[index]]}`}

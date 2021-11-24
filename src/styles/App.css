@@ -7,6 +7,7 @@
 .title {
   text-align: center;
   font-size: 3rem;
+  text-shadow: 0 0 1rem #ffcc20;
 }
 
 .card {
@@ -17,8 +18,14 @@
   width: min-content;
   height: min-content;
   gap: 0.5rem;
-  box-shadow: 0 0 5px black;
+  box-shadow: 0 0 1rem black;
   border-radius: 0.5rem;
+  transition: all 0.2s linear;
+}
+
+.card:hover {
+  box-shadow: 0 0 1rem rgb(230, 230, 230);
+  transform: scale(1.1);
 }
 
 .card img {
@@ -36,18 +43,27 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  box-shadow: 0 0 5px black;
+  box-shadow: 0 0 1rem black;
+  padding: 1rem;
+  border-radius: 1rem;
   margin: 1rem;
-  gap: 1rem;
+  gap: 2rem;
   background-color: rgb(50, 50, 50);
 }
 
 .score-board {
   text-align: center;
   background-color: rgb(50, 50, 50);
+  box-shadow: 0 0 1rem black;
+
+  border-radius: 1rem;
   margin: 2rem;
 }
 
 .score-board h2 {
   margin: 0.5rem 0 0.5rem 0;
+}
+
+.score-board h2:last-child {
+  text-shadow: 0 0 1rem red;
 }

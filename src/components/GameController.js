@@ -17,7 +17,6 @@ export default function GameController() {
         setIsLoading(false);
       });
     });
-    console.log("fetched");
   }, []);
 
   const [level, setLevel] = useState(1);
@@ -28,7 +27,7 @@ export default function GameController() {
 
   const size = level * 2;
   const randInts = randIntsRef.current;
-
+  // Generate random integers and setting initial click tracking state
   useEffect(() => {
     while (randInts.length < size) {
       const int = Math.floor(Math.random() * 256);
@@ -41,9 +40,7 @@ export default function GameController() {
     }
     randIntsRef.current = randInts;
   }, [randInts, size]);
-
-  console.log(randIntsRef.current);
-
+  // Randomize ordering of numbers in array
   const shuffle = () => {
     for (let i = randIntsRef.current.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
@@ -71,6 +68,7 @@ export default function GameController() {
       return;
     }
     shuffle();
+    // Set click state, check for level completion
     setIsClicked((prevState) => {
       const newState = { ...prevState, [index]: true };
       const allClicked = Object.keys(newState).every(
@@ -80,14 +78,13 @@ export default function GameController() {
         randIntsRef.current = [];
         setIsClicked({});
         setLevel(level + 1);
-        console.log("all clicked");
       }
 
       return newState;
     });
+
     setScore((prevScore) => {
       const newScore = prevScore + 1;
-      console.log(prevScore, newScore);
       if (newScore > bestScore) {
         setBestScore(newScore);
       }
@@ -104,7 +101,6 @@ export default function GameController() {
           countryCodes={countryCodeRef.current}
           randNums={randIntsRef.current}
           onCardClick={onCardClick}
-          size={size}
         />
       )}
     </main>
