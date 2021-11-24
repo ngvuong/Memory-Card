@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import Grid from "./Grid";
+import CardList from "./CardList";
 import ScoreBoard from "./ScoreBoard";
 
 export default function GameController() {
@@ -99,7 +99,7 @@ export default function GameController() {
     <main>
       <ScoreBoard level={level} score={score} bestScore={bestScore} />
       {!isLoading && (
-        <Grid
+        <CardList
           countries={countryRef.current}
           countryCodes={countryCodeRef.current}
           randNums={randIntsRef.current}

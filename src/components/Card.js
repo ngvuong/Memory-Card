@@ -11,7 +11,7 @@ export default function Card({ countries, countryCodes, index, onClick }) {
   });
   return (
     <div
-      className="flag-card"
+      className="card"
       onClick={(e) => {
         e.currentTarget.style.backgroundColor = "red";
         console.log(e.currentTarget);

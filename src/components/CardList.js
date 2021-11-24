@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "./Card";
 
-export default function Grid({
+export default function CardList({
   countries,
   countryCodes,
   randNums,
@@ -78,8 +78,8 @@ export default function Grid({
 
   return (
     <div
-      className="card-grid"
-      style={{ gridTemplateColumns: `repeat(${size},1fr)` }}
+      className="card-list"
+      // style={{ gridTemplateColumns: `repeat(${size},1fr)` }}
     >
       {randNums.map((int) => {
         return (
