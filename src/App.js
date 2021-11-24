@@ -33,7 +33,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className="title">Flag Fun</h1>
+      <h1 className="title">Memory Master</h1>
       <GameController />
     </div>
   );

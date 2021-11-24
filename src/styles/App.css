@@ -7,6 +7,11 @@
   box-sizing: border-box;
 }
 
+.title {
+  text-align: center;
+  font-size: 3rem;
+}
+
 .flag-card {
   display: flex;
   flex-direction: column;

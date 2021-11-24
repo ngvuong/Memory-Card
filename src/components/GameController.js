@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import Grid from "./Grid";
+import ScoreBoard from "./ScoreBoard";
 
 export default function GameController() {
-  const countriesRef = useRef();
+  const countryRef = useRef();
   const countryCodeRef = useRef();
   const [isLoading, setIsLoading] = useState(true);
-
+  // Fetching and saving country data on mount
   useEffect(() => {
     fetch("https://flagcdn.com/en/codes.json").then((res) => {
       res.json().then((data) => {
-        countriesRef.current = JSON.parse(JSON.stringify(data));
-        countryCodeRef.current = Object.keys(countriesRef.current).filter(
+        countryRef.current = JSON.parse(JSON.stringify(data));
+        countryCodeRef.current = Object.keys(countryRef.current).filter(
           (key) => !key.includes("us-")
         );
         setIsLoading(false);
@@ -20,28 +21,13 @@ export default function GameController() {
   }, []);
 
   const [level, setLevel] = useState(1);
-  const gridSize = level + 1;
-  // const [isShuffled, setIsShuffled] = useState(false);
+  const [isClicked, setIsClicked] = useState({});
+  const [score, setScore] = useState(0);
+  const [bestScore, setBestScore] = useState(0);
   const randIntsRef = useRef([]);
-  // const [randNums, setRandNums] = useState([]);
+
+  const gridSize = level + 1;
   const randInts = randIntsRef.current;
-  const setIsClicked = useState({})[1];
-  // const isFirstRender = useRef(true);
-
-  // useEffect(() => {
-  //   if (isFirstRender.current) {
-  //     isFirstRender.current = false;
-  //     return;
-  //   }
-  //   randIntsRef.current = [];
-  //   setIsClicked({});
-
-  //   console.log("set gridSize");
-  // }, [level, setIsClicked]);
-
-  // if (isShuffled) {
-  //   setIsShuffled(false);
-  // }
 
   useEffect(() => {
     while (randInts.length < gridSize ** 2) {
@@ -54,7 +40,7 @@ export default function GameController() {
       }
     }
     randIntsRef.current = randInts;
-  }, [randInts, gridSize, setIsClicked]);
+  }, [randInts, gridSize]);
 
   console.log(randIntsRef.current);
 
@@ -76,45 +62,51 @@ export default function GameController() {
     randIntsRef.current = [];
     setIsClicked({});
     setLevel(1);
+    setScore(0);
   };
 
   const onCardClick = (index) => {
+    if (isClicked[index] === true) {
+      restartGame();
+      return;
+    }
     shuffle();
     setIsClicked((prevState) => {
-      if (prevState[index] === true) {
-        restartGame();
-        return;
-      }
       const newState = { ...prevState, [index]: true };
-      console.log(newState);
       const allClicked = Object.keys(newState).every(
         (key) => newState[key] === true
       );
       if (allClicked) {
         randIntsRef.current = [];
         setIsClicked({});
-
         setLevel(level + 1);
         console.log("all clicked");
       }
+
       return newState;
     });
-    // console.log(isClicked);
-    // setSkip(false);
-    // setIsShuffled(true);
+    setScore((prevScore) => {
+      const newScore = prevScore + 1;
+      console.log(prevScore, newScore);
+      if (newScore > bestScore) {
+        setBestScore(newScore);
+      }
+      return newScore;
+    });
   };
 
   return (
-    <div>
+    <main>
+      <ScoreBoard level={level} score={score} bestScore={bestScore} />
       {!isLoading && (
         <Grid
-          countries={countriesRef.current}
+          countries={countryRef.current}
           countryCodes={countryCodeRef.current}
           randNums={randIntsRef.current}
           onCardClick={onCardClick}
           size={gridSize}
         />
       )}
-    </div>
+    </main>
   );
 }
